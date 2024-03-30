@@ -10,7 +10,6 @@ import Cocoa
 
 class ZerotierStatusTextFieldCell: NSTextFieldCell {
     func adjustedFrame(toVerticallyCenterText rect: NSRect) -> NSRect {
-        // super would normally draw text at the top of the cell
         var titleRect = super.titleRect(forBounds: rect)
         
         let minimumHeight = self.cellSize(forBounds: rect).height

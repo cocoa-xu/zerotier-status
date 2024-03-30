@@ -52,14 +52,14 @@ jobs:
         run: |
           xcodebuild \
             archive \
-            -project "kimino.xcodeproj/" \
-            -scheme "kimino" \
+            -project "ZerotierStatus.xcodeproj/" \
+            -scheme "ZerotierStatus" \
             -destination "generic/platform=macOS" \
-            -archivePath "dist/kimino.xcarchive"
+            -archivePath "dist/ZerotierStatus.xcarchive"
           xcodebuild \
             -exportArchive \
-            -archivePath "dist/kimino.xcarchive" \
-            -exportOptionsPlist "kimino/ExportOptions.plist" \
+            -archivePath "dist/ZerotierStatus.xcarchive" \
+            -exportOptionsPlist "ZerotierStatus/ExportOptions.plist" \
             -exportPath dist/ \
             -allowProvisioningUpdates
 
@@ -67,8 +67,8 @@ jobs:
         run: |
           brew install graphicsmagick imagemagick
           npm install --global create-dmg
-          create-dmg 'dist/kimino.app' dist
-          mv "$(find ./dist -type file -name '*.dmg')" "./dist/Kimino-Universal.dmg"
+          create-dmg 'dist/ZerotierStatus.app' dist
+          mv "$(find ./dist -type file -name '*.dmg')" "./dist/ZerotierStatus-Universal.dmg"
 
       - name: Notarize app
         env:
@@ -80,8 +80,8 @@ jobs:
             --team-id "$TEAM_ID" \
             --apple-id "$APPLE_ID" \
             --password "$NOTARY_PASSWORD" \
-            --wait "./dist/Kimino-Universal.dmg"
-          xcrun stapler staple "./dist/Kimino-Universal.dmg"
+            --wait "./dist/ZerotierStatus-Universal.dmg"
+          xcrun stapler staple "./dist/ZerotierStatus-Universal.dmg"
 
       - name: Upload release
         uses: softprops/action-gh-release@v1
