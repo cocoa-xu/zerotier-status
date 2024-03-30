@@ -114,35 +114,11 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-        var fakePeer = ZerotierPeer()
-        fakePeer.networkID = "abcdef1234567890"
-        fakePeer.networkName = "My Network"
-        fakePeer.nodeId = "deadbeef"
-        fakePeer.name = "MacBook Pro M2 Max"
-        fakePeer.description = "UwU"
-        fakePeer.lastOnline = UInt64(Date().timeIntervalSince1970 * 1000)
-        fakePeer.lastSeen = UInt64(Date().timeIntervalSince1970 * 1000)
-        fakePeer.physicalAddress = "1.2.3.4"
-        fakePeer.ipAssignments = ["172.16.0.1", "172.16.0.2"]
-        self.peers.append(fakePeer)
-        
-        fakePeer = ZerotierPeer()
-        fakePeer.networkID = "abcdef1234567890"
-        fakePeer.networkName = "My Network"
-        fakePeer.nodeId = "c0deface"
-        fakePeer.name = "Ryzen 7940HS"
-        fakePeer.description = "Intel"
-        fakePeer.lastOnline = UInt64(Date().timeIntervalSince1970 * 1000)
-        fakePeer.lastSeen = UInt64(Date().timeIntervalSince1970 * 1000)
-        fakePeer.physicalAddress = "5.6.7.8"
-        fakePeer.ipAssignments = ["172.16.0.3", "172.16.0.4"]
-        self.peers.append(fakePeer)
-        self.updateMenu()
-//        self.updateTimer = Timer.scheduledTimer(withTimeInterval: 60*5, repeats: true) { timer in
-//            let queue = DispatchQueue(label: "moe.uwucocoa.ZerotierStatus")
-//            queue.async { self.refreshNetwork() }
-//        }
-//        self.updateTimer?.fire()
+       self.updateTimer = Timer.scheduledTimer(withTimeInterval: 60*5, repeats: true) { timer in
+           let queue = DispatchQueue(label: "moe.uwucocoa.ZerotierStatus")
+           queue.async { self.refreshNetwork() }
+       }
+       self.updateTimer?.fire()
     }
     
     @objc func refreshNetwork() {
