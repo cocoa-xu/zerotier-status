@@ -707,35 +707,96 @@
             <objects>
                 <viewController showSeguePresentationStyle="single" id="XfG-lQ-9wD" customClass="ZerotierStatusPreferencesViewController" customModule="ZerotierStatus" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" id="m2S-Jp-Qdl">
-                        <rect key="frame" x="0.0" y="0.0" width="480" height="56"/>
+                        <rect key="frame" x="0.0" y="0.0" width="480" height="191"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <subviews>
-                            <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="G2g-ZZ-Eg8">
-                                <rect key="frame" x="18" y="0.0" width="464" height="56"/>
+                            <box title="API Token" translatesAutoresizingMaskIntoConstraints="NO" id="EI7-dO-PNh">
+                                <rect key="frame" x="17" y="99" width="446" height="72"/>
+                                <view key="contentView" id="gTE-pz-OXh">
+                                    <rect key="frame" x="4" y="5" width="438" height="52"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <textField horizontalHuggingPriority="251" verticalHuggingPriority="750" translatesAutoresizingMaskIntoConstraints="NO" id="G2g-ZZ-Eg8">
+                                            <rect key="frame" x="18" y="0.0" width="402" height="52"/>
+                                            <constraints>
+                                                <constraint firstAttribute="height" constant="52" id="47J-cR-kJ1"/>
+                                            </constraints>
+                                            <textFieldCell key="cell" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="left" placeholderString="Set Zerotier API Token" id="dhl-vq-dZQ" customClass="ZerotierStatusTextFieldCell" customModule="ZerotierStatus" customModuleProvider="target">
+                                                <font key="font" size="13" name="Monaco"/>
+                                                <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                    <constraints>
+                                        <constraint firstAttribute="bottom" secondItem="G2g-ZZ-Eg8" secondAttribute="bottom" id="EEG-ku-ZO3"/>
+                                        <constraint firstItem="G2g-ZZ-Eg8" firstAttribute="top" secondItem="gTE-pz-OXh" secondAttribute="top" id="LTC-Us-bp0"/>
+                                        <constraint firstItem="G2g-ZZ-Eg8" firstAttribute="leading" secondItem="gTE-pz-OXh" secondAttribute="leading" constant="20" symbolic="YES" id="nhc-XS-fU8"/>
+                                        <constraint firstAttribute="trailing" secondItem="G2g-ZZ-Eg8" secondAttribute="trailing" constant="20" symbolic="YES" id="ve0-Lo-eB1"/>
+                                    </constraints>
+                                </view>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="56" id="B9S-Ec-AE1"/>
+                                    <constraint firstAttribute="height" constant="68" id="Wsj-ko-jp9"/>
+                                    <constraint firstAttribute="width" constant="440" id="pl7-jC-rMd"/>
                                 </constraints>
-                                <textFieldCell key="cell" lineBreakMode="clipping" selectable="YES" editable="YES" alignment="left" placeholderString="Set Zerotier API Token" id="dhl-vq-dZQ" customClass="ZerotierStatusTextFieldCell" customModule="ZerotierStatus" customModuleProvider="target">
-                                    <font key="font" size="13" name="Monaco"/>
-                                    <color key="textColor" name="labelColor" catalog="System" colorSpace="catalog"/>
-                                    <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
-                                </textFieldCell>
-                            </textField>
+                            </box>
+                            <box fixedFrame="YES" title="Update Frequency" translatesAutoresizingMaskIntoConstraints="NO" id="i9y-Ft-d3T">
+                                <rect key="frame" x="17" y="16" width="453" height="79"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                <view key="contentView" id="Mjw-C8-5mJ">
+                                    <rect key="frame" x="4" y="5" width="445" height="59"/>
+                                    <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                    <subviews>
+                                        <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sfS-hQ-Mpc">
+                                            <rect key="frame" x="315" y="17" width="113" height="23"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <comboBoxCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" borderStyle="bezel" drawsBackground="YES" numberOfVisibleItems="5" id="amD-0Y-KFb">
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                                <objectValues>
+                                                    <string>Seconds</string>
+                                                    <string>Minutes</string>
+                                                    <string>Hours</string>
+                                                    <string>Days</string>
+                                                </objectValues>
+                                            </comboBoxCell>
+                                        </comboBox>
+                                        <stepper horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="rd7-lo-2dN">
+                                            <rect key="frame" x="292" y="15" width="19" height="28"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <stepperCell key="cell" continuous="YES" alignment="left" maxValue="100" id="ykx-ib-LqZ"/>
+                                        </stepper>
+                                        <textField verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Bxm-bb-woZ">
+                                            <rect key="frame" x="20" y="18" width="273" height="21"/>
+                                            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+                                            <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" sendsActionOnEndEditing="YES" state="on" drawsBackground="YES" id="uc0-Mi-AhT">
+                                                <numberFormatter key="formatter" formatterBehavior="default10_4" numberStyle="decimal" formatWidth="-1" minimumIntegerDigits="1" maximumIntegerDigits="2000000000" maximumFractionDigits="3" id="bUa-ha-Vqn"/>
+                                                <font key="font" metaFont="system"/>
+                                                <color key="textColor" name="controlTextColor" catalog="System" colorSpace="catalog"/>
+                                                <color key="backgroundColor" name="textBackgroundColor" catalog="System" colorSpace="catalog"/>
+                                            </textFieldCell>
+                                        </textField>
+                                    </subviews>
+                                </view>
+                            </box>
                         </subviews>
                         <constraints>
-                            <constraint firstItem="G2g-ZZ-Eg8" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" id="8bk-FF-SBD"/>
-                            <constraint firstAttribute="bottom" secondItem="G2g-ZZ-Eg8" secondAttribute="bottom" id="BzM-U7-hkV"/>
-                            <constraint firstAttribute="trailing" secondItem="G2g-ZZ-Eg8" secondAttribute="trailing" id="FHF-6H-dn5"/>
-                            <constraint firstItem="G2g-ZZ-Eg8" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="o5d-W5-enn"/>
+                            <constraint firstAttribute="trailing" secondItem="EI7-dO-PNh" secondAttribute="trailing" constant="20" symbolic="YES" id="2JN-ec-S5h"/>
+                            <constraint firstItem="EI7-dO-PNh" firstAttribute="top" secondItem="m2S-Jp-Qdl" secondAttribute="top" constant="20" symbolic="YES" id="cG0-Qd-pBt"/>
+                            <constraint firstItem="EI7-dO-PNh" firstAttribute="leading" secondItem="m2S-Jp-Qdl" secondAttribute="leading" constant="20" symbolic="YES" id="ii1-2w-U3X"/>
                         </constraints>
                     </view>
                     <connections>
                         <outlet property="tokenTextField" destination="G2g-ZZ-Eg8" id="olc-Am-vTD"/>
+                        <outlet property="updateFreqComboBox" destination="sfS-hQ-Mpc" id="K3R-xN-tMG"/>
+                        <outlet property="updateFreqStepper" destination="rd7-lo-2dN" id="WeV-CC-dVV"/>
+                        <outlet property="updateFreqTextField" destination="Bxm-bb-woZ" id="HFA-cG-nam"/>
                     </connections>
                 </viewController>
                 <customObject id="rPt-NT-nkU" userLabel="First Responder" customClass="NSResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="89" y="665"/>
+            <point key="canvasLocation" x="89" y="732.5"/>
         </scene>
     </scenes>
 </document>

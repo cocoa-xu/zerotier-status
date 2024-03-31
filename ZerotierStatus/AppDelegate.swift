@@ -39,12 +39,32 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     var peers: [ZerotierPeer]!
     
     let ZEROTIER_STATUS_APIKEY: String! = "ZerotierAPIKey"
+    let ZEROTIER_STATUS_UPDATE_FREQ_TIMEUNIT: String! = "ZerotierUpdateFreqTimeUnit"
+    let ZEROTIER_STATUS_UPDATE_FREQ_VALUE: String! = "ZerotierUpdateFreqValue"
     var zerotierAPIKey: String? {
         didSet {
             guard let zerotierAPIKey = zerotierAPIKey else { return }
             let queue = DispatchQueue(label: "moe.uwucocoa.ZerotierStatus")
             queue.async {
                 try! AsymmetricUserDefaults().setValue(zerotierAPIKey, forKey: self.ZEROTIER_STATUS_APIKEY)
+            }
+        }
+    }
+    var updateFreqTimeUnit: UInt {
+        didSet {
+            let queue = DispatchQueue(label: "moe.uwucocoa.ZerotierStatus")
+            queue.async {
+                try! AsymmetricUserDefaults().setValue("\(self.updateFreqTimeUnit)", forKey: self.ZEROTIER_STATUS_UPDATE_FREQ_TIMEUNIT)
+                self.updateTimerInterval()
+            }
+        }
+    }
+    var updateFreqValue: UInt {
+        didSet {
+            let queue = DispatchQueue(label: "moe.uwucocoa.ZerotierStatus")
+            queue.async {
+                try! AsymmetricUserDefaults().setValue("\(self.updateFreqValue)", forKey: self.ZEROTIER_STATUS_UPDATE_FREQ_VALUE)
+                self.updateTimerInterval()
             }
         }
     }
@@ -72,6 +92,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.statusBarItem.menu = statusMenu
         self.errorMessage = ""
         self.peers = Array()
+        
+        self.updateFreqTimeUnit = UInt((try? AsymmetricUserDefaults().getValue(forKey: self.ZEROTIER_STATUS_UPDATE_FREQ_TIMEUNIT) ?? "1")!) ?? 1
+        self.updateFreqValue = UInt((try? AsymmetricUserDefaults().getValue(forKey: self.ZEROTIER_STATUS_UPDATE_FREQ_VALUE) ?? "5")!) ?? 5
         
         super.init()
         self.updateMenu()
@@ -114,11 +137,38 @@ class AppDelegate: NSObject, NSApplicationDelegate {
     }
 
     func applicationDidFinishLaunching(_ aNotification: Notification) {
-       self.updateTimer = Timer.scheduledTimer(withTimeInterval: 60*5, repeats: true) { timer in
-           let queue = DispatchQueue(label: "moe.uwucocoa.ZerotierStatus")
-           queue.async { self.refreshNetwork() }
-       }
-       self.updateTimer?.fire()
+        self.updateTimerInterval()
+        self.updateTimer?.fire()
+    }
+    
+    func updateTimerInterval() {
+        var interval: UInt = 1
+        switch self.updateFreqTimeUnit {
+        case 0:
+            // seconds
+            interval = 1
+        case 1:
+            // minutes
+            interval = 60
+        case 2:
+            // hours
+            interval = 3600
+        case 3:
+            // days
+            interval = 3600 * 24
+        default:
+            interval = 60
+        }
+        interval *= self.updateFreqValue
+        
+        if self.updateTimer != nil {
+            self.updateTimer!.invalidate()
+        }
+        
+        self.updateTimer = Timer.scheduledTimer(withTimeInterval: TimeInterval(interval), repeats: true) { timer in
+            let queue = DispatchQueue(label: "moe.uwucocoa.ZerotierStatus")
+            queue.async { self.refreshNetwork() }
+        }
     }
     
     @objc func refreshNetwork() {
@@ -215,6 +265,9 @@ class AppDelegate: NSObject, NSApplicationDelegate {
         self.preferencesWindow.showWindow(self)
         let vc = self.preferencesWindow.contentViewController as! ZerotierStatusPreferencesViewController
         vc.tokenTextField.stringValue = self.zerotierAPIKey ?? ""
+        vc.updateFreqTextField.stringValue = "\(self.updateFreqValue)"
+        vc.updateFreqComboBox.selectItem(at: Int(self.updateFreqTimeUnit))
+        vc.updateFreqStepper.floatValue = Float(self.updateFreqValue)
         self.preferencesWindow.window?.orderFrontRegardless()
     }
     
