@@ -741,10 +741,10 @@
                                 </constraints>
                             </box>
                             <box fixedFrame="YES" title="Update Frequency" translatesAutoresizingMaskIntoConstraints="NO" id="i9y-Ft-d3T">
-                                <rect key="frame" x="17" y="16" width="453" height="79"/>
+                                <rect key="frame" x="17" y="16" width="446" height="79"/>
                                 <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
                                 <view key="contentView" id="Mjw-C8-5mJ">
-                                    <rect key="frame" x="4" y="5" width="445" height="59"/>
+                                    <rect key="frame" x="4" y="5" width="438" height="59"/>
                                     <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                                     <subviews>
                                         <comboBox verticalHuggingPriority="750" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sfS-hQ-Mpc">
